@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>URL Shortener Project</title>
+    <meta charset="utf-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+		  $('#form').submit(function(){
+			$.ajax({
+			   type: "POST",
+			   url: "gen.php",
+			   data: $(this).serialize(),
+			   beforeSend: function(){
+				 $('.loading').show(1);
+			   },
+			   complete: function(){
+				 $('.loading').hide(1);
+			   },
+			   success: function(data){
+				 $('#short').val(data);
+			   }
+			 });
+			return false;
+		  });
+	    });
+    </script>
+  </head>
+
+  <body>
+    <div id="container">
+      <h1>URL Shortener</h1>
+      <form id="form" action="#" method="post">
+        <fieldset>
+          <input type="text" name="url" id="short">
+          <input type="submit" value="shorten"></input>
+          <div class="loading"></div>
+        </fieldset>
+      </form>
+    </div>
+  </body>
+  </html>
